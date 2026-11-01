@@ -246,9 +246,6 @@ Copyright 2021 Themesberg
                                             <option value="Female" {{ $dataPelanggan->gender == 'Female' ? 'selected' : '' }}>
                                                 Female
                                             </option>
-                                            <option value="Other" {{ $dataPelanggan->gender == 'Other' ? 'selected' : '' }}>
-                                                Other
-                                            </option>
                                         </select>
                                     </div>
                                 </div>
