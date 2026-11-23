@@ -6,10 +6,17 @@ use Illuminate\Http\Request;
 
 class PelangganController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data['dataPelanggan'] = Pelanggan::all();
-        return view('admin.pelanggan.index', $data);
+        $filerableColumns = ['gender'];
+
+        $searchableColumns = ['first_name','last_name','email'];
+
+        $pageData['dataPelanggan'] = Pelanggan::filter($request, $filerableColumns)
+            ->search($request, $searchableColumns)
+            ->paginate(10)->withQueryString();
+
+        return view('admin.pelanggan.index', $pageData);
     }
 
     public function create()
@@ -64,7 +71,7 @@ class PelangganController extends Controller
 
     public function destroy(string $id)
     {
-        $pelanggan    = Pelanggan::findOrFail($id);
+        $pelanggan = Pelanggan::findOrFail($id);
         $pelanggan->delete();
 
         return redirect()->route('pelanggan.index')->with('success', 'Data berhasil dihapus!');
